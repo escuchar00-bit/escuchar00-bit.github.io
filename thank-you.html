@@ -25,5 +25,13 @@
       </div>
     </div>
   </main>
+<script>
+window.dataLayer=window.dataLayer||[];
+const leadAttribution={};
+['utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(key=>{
+  leadAttribution[key]=sessionStorage.getItem('liangrui_'+key)||'';
+});
+window.dataLayer.push({event:'generate_lead',form_name:'b2b_rfq',...leadAttribution});
+</script>
 </body>
 </html>
