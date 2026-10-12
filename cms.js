@@ -186,6 +186,51 @@
     text(".proof-copy p:first-child", content.oem.experience);
   };
 
+
+  const setupInquiryCapture = () => {
+    const form = document.querySelector("#rfq-form");
+    if (!form || form.dataset.crmCapture === "1") return;
+    form.dataset.crmCapture = "1";
+
+    form.addEventListener("submit", () => {
+      try {
+        const data = new FormData(form);
+        const val = (name) => String(data.get(name) || "").trim();
+        const payload = {
+          name: val("name"),
+          company: val("company"),
+          email: val("email"),
+          phone: val("phone"),
+          website: val("website"),
+          product: val("product"),
+          quantity: val("quantity"),
+          size: val("size"),
+          message: val("message"),
+          utm_source: val("utm_source"),
+          utm_medium: val("utm_medium"),
+          utm_campaign: val("utm_campaign"),
+          utm_term: val("utm_term"),
+          utm_content: val("utm_content"),
+          landing_page: val("landing_page") || window.location.pathname,
+          referrer: val("referrer") || document.referrer || "direct",
+          honey: val("_honey")
+        };
+
+        fetch("https://liangrui-admin.floot.app/_api/inquiry", {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=UTF-8" },
+          body: JSON.stringify(payload),
+          mode: "cors",
+          keepalive: true
+        }).catch(() => {});
+      } catch (_) {
+        // Email submission remains the fallback even if CRM capture fails.
+      }
+    }, { capture: true });
+  };
+
+  setupInquiryCapture();
+
   fetch(API, { mode: "cors" })
     .then((r) => {
       if (!r.ok) throw new Error("CMS unavailable");
