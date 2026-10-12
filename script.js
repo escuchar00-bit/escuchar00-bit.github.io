@@ -45,6 +45,8 @@ function buildInquiry(){
     `Name: ${val('name')||'-'}`,
     `Company: ${val('company')||'-'}`,
     `Email: ${val('email')||'-'}`,
+    `WhatsApp / phone: ${val('phone')||'-'}`,
+    `Company website: ${val('website')||'-'}`,
     `Product: ${val('product')||'-'}`,
     `Target quantity: ${val('quantity')||'-'}`,
     `Size / specification: ${val('size')||'-'}`,
