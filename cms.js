@@ -67,7 +67,7 @@
 
     products.forEach((p, index) => {
       const article = document.createElement("article");
-      article.className = "product-card reveal" + (index === 0 ? " product-card-feature" : "");
+      article.className = "product-card reveal visible" + (index === 0 ? " product-card-feature" : "");
       article.dataset.product = p.name;
 
       const img = document.createElement("img");
@@ -127,7 +127,7 @@
     list.innerHTML = "";
     content.faqs.forEach((item) => {
       const details = document.createElement("details");
-      details.className = "reveal";
+      details.className = "reveal visible";
       const summary = document.createElement("summary");
       summary.textContent = item.question;
       const p = document.createElement("p");
