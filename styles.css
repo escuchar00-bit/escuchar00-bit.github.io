@@ -44,3 +44,23 @@ footer{max-width:var(--max);margin:auto;display:grid;grid-template-columns:1.3fr
   .products-section{padding-top:52px}
   .intro-section{padding-top:56px}
 }
+
+
+/* 2026-10-14 hero refinement: cleaner editorial product photography */
+.hero-gallery{grid-template-columns:1.7fr .82fr;grid-template-rows:1fr 1fr;gap:12px;min-height:610px}
+.hero-shot-main{grid-row:1 / 3}
+.hero-shot-main img{object-position:center center}
+.hero-shot-small:first-of-type img{object-position:center center}
+.hero-shot-small:last-of-type img{object-position:center center}
+.hero-shot-small figcaption,.hero-gallery .hero-note{display:none!important}
+
+/* Persistent direct-contact controls */
+.floating-email{position:fixed;left:24px;bottom:76px;background:var(--deep);color:#fff;border-radius:999px;padding:12px 16px;font-size:12px;font-weight:800;box-shadow:0 12px 34px #29302933;z-index:25}
+.floating-email:hover,.floating-whatsapp:hover{transform:translateY(-1px)}
+@media(max-width:680px){
+  .hero-gallery{grid-template-columns:1fr 1fr;grid-template-rows:360px 145px;gap:10px;min-height:515px}
+  .hero-shot-main{grid-column:1 / 3;grid-row:1}
+  .hero-shot-small{grid-row:2}
+  .floating-email{left:18px;bottom:70px;padding:11px 14px}
+  .floating-whatsapp{left:18px;bottom:20px;padding:11px 14px}
+}
