@@ -59,11 +59,44 @@ function buildInquiry(){
   return{subject,body};
 }
 
-form?.addEventListener('submit',()=>{
+form?.addEventListener('submit',async(event)=>{
   const email=document.querySelector('#rfq-email');
   const reply=document.querySelector('#rfq-replyto');
   if(reply&&email) reply.value=email.value;
+  if(!form.reportValidity()) return;
+
+  event.preventDefault();
   if(status) status.textContent='Sending your inquiry…';
+
+  const submitButton=form.querySelector('button[type="submit"]');
+  if(submitButton) submitButton.disabled=true;
+
+  const data=new FormData(form);
+  const payload=Object.fromEntries(data.entries());
+  const ajaxUrl=form.action.replace('https://formsubmit.co/','https://formsubmit.co/ajax/');
+
+  try{
+    const controller=new AbortController();
+    const timer=setTimeout(()=>controller.abort(),12000);
+    const response=await fetch(ajaxUrl,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify(payload),
+      signal:controller.signal
+    });
+    clearTimeout(timer);
+
+    if(!response.ok) throw new Error('FormSubmit request failed');
+    const result=await response.json().catch(()=>({success:true}));
+    if(result.success===false) throw new Error(result.message||'FormSubmit rejected the submission');
+
+    window.location.assign('https://liangruihome.com/thank-you.html');
+  }catch(error){
+    if(status) status.textContent='Secure redirect unavailable. Sending with backup method…';
+    if(submitButton) submitButton.disabled=false;
+    // Reliable fallback: preserve the original FormSubmit POST even if AJAX is unavailable.
+    HTMLFormElement.prototype.submit.call(form);
+  }
 });
 
 document.querySelector('#copy-inquiry')?.addEventListener('click',async()=>{
