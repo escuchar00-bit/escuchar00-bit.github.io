@@ -1,0 +1,55 @@
+name: Cache site assets
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/cache-site-assets.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  cache-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out site
+        uses: actions/checkout@v4
+
+      - name: Download stable local copies
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets/images assets/docs
+          curl -fL --retry 3 --retry-delay 2 "https://nantong-liangrui.floot.app/_cdn/static/52705473-d496-4b9e-9dc1-1cdcb48e0c77-hero.jpg" -o assets/images/hero.jpg
+          curl -fL --retry 3 --retry-delay 2 "https://nantong-liangrui.floot.app/_cdn/static/05c727e8-7d02-4643-967d-4ac13fa43ff7-chunky.jpg" -o assets/images/chunky.jpg
+          curl -fL --retry 3 --retry-delay 2 "https://nantong-liangrui.floot.app/_cdn/static/62a99719-c648-4a92-a50b-5d623072bcc7-rib.jpg" -o assets/images/rib.jpg
+          curl -fL --retry 3 --retry-delay 2 "https://nantong-liangrui.floot.app/_cdn/static/2f40edf4-cea6-4697-82df-a12369fe2e79-chenille.jpg" -o assets/images/chenille.jpg
+          curl -fL --retry 3 --retry-delay 2 "https://nantong-liangrui.floot.app/_cdn/static/2e78d150-2e2f-4309-921f-b14f2ae1d09c-cable.jpg" -o assets/images/cable.jpg
+          curl -fL --retry 3 --retry-delay 2 "https://nantong-liangrui.floot.app/_cdn/static/5f47a17b-433c-4d04-b1fe-96adbadcdfc3-cotton.jpg" -o assets/images/cotton.jpg
+          curl -fL --retry 3 --retry-delay 2 "https://nantong-liangrui.floot.app/_cdn/static/160823d0-347f-4d77-b1e3-ab1067d8bcd4-jacquard.jpg" -o assets/images/jacquard.jpg
+          curl -fL --retry 3 --retry-delay 2 "https://nantong-liangrui.floot.app/_cdn/static/428155cf-175b-41dc-bd99-d9c739e5dae6-lightweight.jpg" -o assets/images/lightweight.jpg
+          curl -fL --retry 3 --retry-delay 2 "https://nantong-liangrui.floot.app/_cdn/static/11af16f2-e5dd-485a-b8ba-8677b0138650-liangrui-catalog.pdf" -o assets/docs/liangrui-catalog.pdf
+
+          test -s assets/images/hero.jpg
+          test -s assets/images/chunky.jpg
+          test -s assets/images/rib.jpg
+          test -s assets/images/chenille.jpg
+          test -s assets/images/cable.jpg
+          test -s assets/images/cotton.jpg
+          test -s assets/images/jacquard.jpg
+          test -s assets/images/lightweight.jpg
+          test -s assets/docs/liangrui-catalog.pdf
+
+      - name: Commit cached assets
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/images assets/docs
+          if git diff --cached --quiet; then
+            echo "Assets already cached."
+            exit 0
+          fi
+          git commit -m "Cache Liangrui site assets locally"
+          git push
