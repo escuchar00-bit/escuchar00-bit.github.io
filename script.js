@@ -60,43 +60,50 @@ function buildInquiry(){
 }
 
 form?.addEventListener('submit',async(event)=>{
+  event.preventDefault();
+  if(!form.reportValidity()) return;
+
   const email=document.querySelector('#rfq-email');
   const reply=document.querySelector('#rfq-replyto');
   if(reply&&email) reply.value=email.value;
-  if(!form.reportValidity()) return;
-
-  event.preventDefault();
-  if(status) status.textContent='Sending your inquiry…';
 
   const submitButton=form.querySelector('button[type="submit"]');
+  if(submitButton?.disabled) return;
   if(submitButton) submitButton.disabled=true;
+  if(status) {
+    status.textContent='Sending your inquiry…';
+    status.setAttribute('role','status');
+  }
 
-  const data=new FormData(form);
-  const payload=Object.fromEntries(data.entries());
+  const payload=Object.fromEntries(new FormData(form).entries());
   const ajaxUrl=form.action.replace('https://formsubmit.co/','https://formsubmit.co/ajax/');
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),15000);
 
-  try{
-    const controller=new AbortController();
-    const timer=setTimeout(()=>controller.abort(),12000);
+  try {
     const response=await fetch(ajaxUrl,{
       method:'POST',
       headers:{'Content-Type':'application/json','Accept':'application/json'},
       body:JSON.stringify(payload),
       signal:controller.signal
     });
-    clearTimeout(timer);
-
-    if(!response.ok) throw new Error('FormSubmit request failed');
-    const result=await response.json().catch(()=>({success:true}));
-    if(result.success===false) throw new Error(result.message||'FormSubmit rejected the submission');
-
+    if(!response.ok) throw new Error('FormSubmit HTTP '+response.status);
+    const result=await response.json();
+    // Only a positive provider acknowledgement can lead to the thank-you page.
+    if(result.success!==true&&result.success!=='true') {
+      throw new Error(result.message||'FormSubmit did not confirm delivery');
+    }
     sessionStorage.setItem('liangrui_lead_confirmed',String(Date.now()));
     window.location.assign('https://liangruihome.com/thank-you.html');
-  }catch(error){
-    if(status) status.textContent='Secure redirect unavailable. Sending with backup method…';
+  } catch(error) {
+    console.error('Inquiry submission not confirmed:',error);
+    if(status) {
+      status.textContent='We could not confirm your inquiry was sent. Please try again, or email henry.zhang@movellc.net directly.';
+      status.setAttribute('role','alert');
+    }
     if(submitButton) submitButton.disabled=false;
-    // Reliable fallback: preserve the original FormSubmit POST even if AJAX is unavailable.
-    HTMLFormElement.prototype.submit.call(form);
+  } finally {
+    clearTimeout(timer);
   }
 });
 
