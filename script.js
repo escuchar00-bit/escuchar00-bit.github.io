@@ -90,6 +90,7 @@ form?.addEventListener('submit',async(event)=>{
     const result=await response.json().catch(()=>({success:true}));
     if(result.success===false) throw new Error(result.message||'FormSubmit rejected the submission');
 
+    sessionStorage.setItem('liangrui_lead_confirmed',String(Date.now()));
     window.location.assign('https://liangruihome.com/thank-you.html');
   }catch(error){
     if(status) status.textContent='Secure redirect unavailable. Sending with backup method…';
