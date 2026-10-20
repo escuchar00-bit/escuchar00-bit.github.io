@@ -177,6 +177,42 @@
   .ads-page .mobile-contact-bar { transition:none; }
 }
 
+
+/* Added factory proof only (2026-10-20). Existing page, form and tracking unchanged. */
+.ads-page .landing-factory { background:#eee6db; border-top:1px solid #d8d0c4; border-bottom:1px solid #d8d0c4; }
+.ads-page .landing-factory .landing-section { padding-top:63px; padding-bottom:66px; }
+.ads-page .landing-factory .landing-section-head h2 { max-width:750px; }
+.ads-page .landing-factory .landing-intro { max-width:385px; }
+.ads-page .landing-factory-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.ads-page .landing-factory-card { background:#fbf8f2; margin:0; overflow:hidden; border:1px solid #d8d0c4; border-radius:15px; min-width:0; }
+.ads-page .landing-factory-card img { display:block; width:100%; height:220px; object-fit:cover; }
+.ads-page .landing-factory-card figcaption { padding:14px 17px 17px; }
+.ads-page .landing-factory-card strong { font-family:Georgia,"Times New Roman",serif; font-size:21px; font-weight:500; display:block; margin-bottom:6px; }
+.ads-page .landing-factory-card span { display:block; color:#6d675f; font-size:12px; line-height:1.55; }
+.ads-page .landing-factory-bottom { display:flex; justify-content:space-between; align-items:center; gap:20px; margin-top:23px; }
+.ads-page .landing-factory-note { font-size:13px; line-height:1.65; color:#59544c; max-width:400px; }
+.ads-page .landing-factory-actions { display:flex; align-items:center; gap:13px; flex-wrap:wrap; }
+.ads-page .landing-factory-video-link { font-size:13px; font-weight:750; color:#89533a; text-decoration:underline; text-underline-offset:4px; }
+.ads-page .landing-factory-actions .btn { min-height:46px; }
+@media (max-width:980px) {
+  .ads-page .landing-factory-card img { height:190px; }
+  .ads-page .landing-factory-bottom { align-items:flex-start; flex-direction:column; }
+}
+@media (max-width:680px) {
+  .ads-page .landing-factory .landing-section { padding-top:43px; padding-bottom:47px; }
+  .ads-page .landing-factory-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+  .ads-page .landing-factory-card:first-child { grid-column:1/-1; }
+  .ads-page .landing-factory-card:first-child img { height:205px; }
+  .ads-page .landing-factory-card:not(:first-child) img { height:145px; }
+  .ads-page .landing-factory-card figcaption { padding:11px 12px 14px; }
+  .ads-page .landing-factory-card strong { font-size:18px; margin-bottom:4px; }
+  .ads-page .landing-factory-card span { font-size:11px; }
+  .ads-page .landing-factory-bottom { gap:13px; margin-top:19px; }
+  .ads-page .landing-factory-note { font-size:12px; }
+  .ads-page .landing-factory-actions { display:grid; grid-template-columns:1fr; gap:15px; width:100%; }
+  .ads-page .landing-factory-actions .btn { text-align:center; justify-content:center; width:100%; }
+}
+
   </style>
 </head>
 <body class="ads-page">
@@ -282,6 +318,40 @@
         <div class="landing-after-products">
           <span>Need a different construction, weight or size? We develop to your brief.</span>
           <a href="assets/docs/liangrui-catalog.pdf" target="_blank" rel="noopener">Explore the full catalog ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Added factory proof only (2026-10-20); existing page sections are preserved. -->
+    <section class="landing-factory" id="factory-preview" aria-labelledby="landing-factory-title">
+      <div class="landing-container landing-section">
+        <div class="landing-section-head">
+          <div>
+            <p class="landing-eyebrow">REAL MANUFACTURING · NANTONG, CHINA</p>
+            <h2 id="landing-factory-title">See where your knit blankets are made.</h2>
+          </div>
+          <p class="landing-intro">Explore real photos from our family-owned knitting facility. Nantong Liangrui handles overseas orders and exports with direct access to production.</p>
+        </div>
+        <div class="landing-factory-grid">
+          <figure class="landing-factory-card">
+            <img src="assets/factory/factory-exterior.webp" width="960" height="720" loading="lazy" decoding="async" alt="Actual exterior of our family-owned knitting factory in Nantong, China" />
+            <figcaption><strong>Our Factory</strong><span>Our real knitting production facilities in Nantong.</span></figcaption>
+          </figure>
+          <figure class="landing-factory-card">
+            <img src="assets/factory/factory-floor.webp" width="960" height="720" loading="lazy" decoding="async" alt="Rows of knitting machines inside our actual production workshop" />
+            <figcaption><strong>Production Workshop</strong><span>A look inside the workshop and its knitting equipment.</span></figcaption>
+          </figure>
+          <figure class="landing-factory-card">
+            <img src="assets/factory/factory-machine.webp" width="960" height="720" loading="lazy" decoding="async" alt="Real knitting machinery with knitted fabric in production" />
+            <figcaption><strong>Knitting in Action</strong><span>Close-up of equipment and fabric during production.</span></figcaption>
+          </figure>
+        </div>
+        <div class="landing-factory-bottom">
+          <p class="landing-factory-note">Actual factory photos, not stock imagery. View more workshop images and our 14-second production video on the main website.</p>
+          <div class="landing-factory-actions">
+            <a class="landing-factory-video-link" href="/#our-factory" aria-label="View our full factory gallery and production video on the main website">View factory &amp; production video ↗</a>
+            <a class="btn btn-primary" href="#inquiry">Discuss your project ↗</a>
+          </div>
         </div>
       </div>
     </section>
