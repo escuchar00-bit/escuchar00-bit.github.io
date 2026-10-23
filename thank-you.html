@@ -8,6 +8,7 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'AW-18501347334');
+    gtag('config', 'G-PGMXJ76PZS');
   </script>
   <!-- Event snippet for Request quote conversion page -->
   <script>
@@ -15,7 +16,10 @@
       'send_to': 'AW-18501347334/ZUQyCK2S3ZgdEIbQkPZE',
       'value': 1.0,
       'currency': 'CNY'
-    }); }
+    });
+    // GA4 qualified lead is emitted only after FormSubmit confirmed success.
+    gtag('event', 'generate_lead', { 'send_to': 'G-PGMXJ76PZS', 'method': 'rfq_form' });
+    }
   </script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
