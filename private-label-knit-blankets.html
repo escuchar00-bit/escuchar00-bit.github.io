@@ -57,6 +57,7 @@
 .ads-page .landing-product-content h3 { font-size:27px; line-height:1.1; margin:9px 0 0; }
 .ads-page .landing-product-content>p:not(.landing-product-index) { font-size:13px; line-height:1.6; color:#6d675f; min-height:42px; margin:8px 0 0; }
 .ads-page .landing-product-card .product-link { display:inline-flex; gap:8px; align-items:center; min-height:32px; font-size:12px; margin-top:13px; }
+.ads-page .landing-product-card .landing-detail-link { display:block; width:fit-content; margin-top:5px; font-size:12px; font-weight:700; line-height:1.6; color:#89533a; text-decoration:underline; text-underline-offset:3px; }
 .ads-page .landing-after-products { display:flex; align-items:center; justify-content:space-between; padding:20px 0 0; gap:20px; color:#6d675f; font-size:13px; }
 .ads-page .landing-after-products a { color:#89533a; font-weight:800; text-decoration:underline; text-underline-offset:4px; }
 .ads-page .landing-service { background:#ebe3d8; }
@@ -239,15 +240,15 @@
           <span>Typical sampling ~7 days</span><span>MOQ ~1,000 pcs / style</span><span>OEM / ODM support</span>
         </div>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#styles">Explore knit styles <span aria-hidden="true">↘</span></a>
-          <a class="btn btn-secondary" href="#inquiry">Request a quote</a>
+          <a class="btn btn-primary" href="#inquiry">Request a quote <span aria-hidden="true">↗</span></a>
+          <a class="btn btn-secondary" href="#styles">Explore knit styles</a>
         </div>
         <a class="landing-catalog" href="assets/docs/liangrui-catalog.pdf" target="_blank" rel="noopener">View our product catalog (PDF) <span aria-hidden="true">↗</span></a>
       </div>
       <div class="landing-hero-images" aria-label="Examples of knit throw textures">
         <img src="assets/images/chunky.jpg" alt="Neutral chunky knit blanket arranged on a bed" width="780" height="980" fetchpriority="high" decoding="async" />
-        <img src="assets/images/rib.jpg" alt="Neutral rib knit throw blanket" width="480" height="480" decoding="async" />
-        <img src="assets/images/cable.jpg" alt="Cable knit throw blanket with braided yarn texture" width="480" height="480" decoding="async" />
+        <img src="assets/images/rib.jpg" alt="Neutral rib knit throw blanket" width="480" height="480" loading="lazy" fetchpriority="low" decoding="async" />
+        <img src="assets/images/cable.jpg" alt="Cable knit throw blanket with braided yarn texture" width="480" height="480" loading="lazy" fetchpriority="low" decoding="async" />
       </div>
     </section>
 
@@ -262,16 +263,17 @@
         </div>
         <div class="landing-products-grid">
         <article class="product-card landing-product-card" data-product="Chunky Knit Blanket">
-          <img src="assets/images/chunky.jpg" alt="Chunky Knit Blanket - knit blanket style for OEM and private label development" width="640" height="760" loading="eager" decoding="async" />
+          <img src="assets/images/chunky.jpg" alt="Chunky Knit Blanket - knit blanket style for OEM and private label development" width="640" height="760" loading="lazy" fetchpriority="low" decoding="async" />
           <div class="landing-product-content">
             <p class="landing-product-index">01 / KNIT STYLES</p>
             <h3>Chunky Knit</h3>
             <p>Oversized texture with a relaxed, premium hand feel.</p>
             <a class="product-link" href="#inquiry" aria-label="Ask about Chunky Knit Blanket">Discuss this style <span aria-hidden="true">↗</span></a>
+            <a class="landing-detail-link" href="/chunky-knit-blankets.html">Explore chunky knit constructions ↗</a>
           </div>
         </article>
         <article class="product-card landing-product-card" data-product="Rib Knit Throw">
-          <img src="assets/images/rib.jpg" alt="Rib Knit Throw - knit blanket style for OEM and private label development" width="640" height="760" loading="eager" decoding="async" />
+          <img src="assets/images/rib.jpg" alt="Rib Knit Throw - knit blanket style for OEM and private label development" width="640" height="760" loading="lazy" fetchpriority="low" decoding="async" />
           <div class="landing-product-content">
             <p class="landing-product-index">02 / KNIT STYLES</p>
             <h3>Rib Knit</h3>
