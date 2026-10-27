@@ -108,14 +108,14 @@
     .step .num { font-size:11px; font-weight:800; color:var(--accent); }
     .step h3 { font-size:25px; margin-top:25px; }
     .step p { font-size:13px; line-height:1.7; color:var(--muted); margin-top:10px; }
-    .proof-grid { display:grid; grid-template-columns:.95fr 1.05fr; gap:55px; align-items:center; }
-    .proof-media { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-    .proof-media img { object-fit:cover; aspect-ratio:1.05/1; border-radius:12px; }
-    .proof-media figure:first-child { grid-column:1/-1; }
-    .proof-media figure:first-child img { aspect-ratio:2.2/1; }
-    .proof-media figcaption { font-size:11px; color:var(--muted); margin-top:8px; line-height:1.5; }
+    .proof-grid { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; }
+    .proof-media { display:grid; grid-template-columns:minmax(0,1fr); gap:13px; min-width:0; }
+    .proof-main img { width:100%; height:270px; aspect-ratio:auto; object-fit:cover; object-position:center 45%; border-radius:15px; }
+    .proof-subgrid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:13px; }
+    .proof-subgrid img { width:100%; height:165px; aspect-ratio:auto; object-fit:cover; object-position:center; border-radius:13px; }
+    .proof-main figcaption { font-size:11px; color:var(--muted); margin-top:7px; line-height:1.5; }
     .proof-copy h2 { font-size:clamp(36px,4vw,50px); line-height:1.08; }
-    .proof-copy p:not(.eyebrow) { color:var(--muted); font-size:15px; line-height:1.78; margin-top:17px; }
+    .proof-copy p:not(.eyebrow) { color:var(--muted); font-size:15px; line-height:1.78; margin-top:17px; max-width:510px; }
     .related { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
     .related article { border:1px solid var(--line); border-radius:15px; background:var(--card); padding:25px 26px; }
     .related h3 { font-size:27px; }
@@ -149,7 +149,9 @@
       .spec-layout { gap:35px; }
       .products { grid-template-columns:repeat(2,minmax(0,1fr)); }
       .step-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
-      .proof-grid { gap:28px; }
+      .proof-grid { gap:30px; }
+      .proof-main img { height:245px; }
+      .proof-subgrid img { height:155px; }
     }
     @media (max-width:700px) {
       .site-header { min-height:72px; }
@@ -176,7 +178,10 @@
       .step { padding:20px 16px; }
       .step h3 { font-size:23px; margin-top:17px; }
       .related { grid-template-columns:1fr; }
-      .proof-media figure:first-child img { aspect-ratio:1.8/1; }
+      .proof-main img { height:245px; }
+      .proof-subgrid { gap:10px; }
+      .proof-subgrid img { height:150px; border-radius:12px; }
+      .proof-main img { border-radius:12px; }
       .contact-card { padding:23px; }
     }
     @media (max-width:400px) {
@@ -304,16 +309,18 @@
     <section class="band" id="factory" aria-labelledby="factory-title">
       <div class="container section proof-grid">
         <div class="proof-media">
-          <figure>
+          <figure class="proof-main">
             <img src="/assets/factory/factory-exterior.webp" loading="lazy" decoding="async" width="960" height="720" alt="Actual family-owned knitting factory building in Nantong, China">
             <figcaption>Our actual knitting production facilities in Nantong.</figcaption>
           </figure>
-          <figure>
-            <img src="/assets/factory/factory-floor.webp" loading="lazy" decoding="async" width="960" height="720" alt="Knitting machinery across the production floor">
-          </figure>
-          <figure>
-            <img src="/assets/factory/factory-machine.webp" loading="lazy" decoding="async" width="960" height="720" alt="Knitting machine producing textile material">
-          </figure>
+          <div class="proof-subgrid">
+            <figure>
+              <img src="/assets/factory/factory-floor.webp" loading="lazy" decoding="async" width="960" height="720" alt="Knitting machinery across the production floor">
+            </figure>
+            <figure>
+              <img src="/assets/factory/factory-machine.webp" loading="lazy" decoding="async" width="960" height="720" alt="Knitting machine producing textile material">
+            </figure>
+          </div>
         </div>
         <div class="proof-copy">
           <p class="eyebrow">PRODUCTION &amp; EXPORT SUPPORT</p>
