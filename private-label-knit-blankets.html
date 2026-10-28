@@ -465,5 +465,34 @@
     document.querySelector('#rfq-form')?.addEventListener('focusout', () => requestAnimationFrame(sync));
   })();
 </script>
+  <script>
+    /* Measure WhatsApp button clicks without changing navigation or the quote form.
+       This measures contact intent, not an actually sent WhatsApp message.
+       GA4's existing automatic outbound-link click event is preserved. */
+    (() => {
+      document.addEventListener('click', event => {
+        const target = event.target;
+        const link = target && typeof target.closest === 'function' ? target.closest('a[href]') : null;
+        if (!link || typeof window.gtag !== 'function') return;
+
+        let url;
+        try { url = new URL(link.href, window.location.href); }
+        catch { return; }
+        if (url.hostname !== 'wa.me' || url.pathname !== '/8618051310988') return;
+
+        const placement = link.classList.contains('mobile-whatsapp') ? 'mobile_bar'
+          : link.classList.contains('floating-whatsapp') ? 'floating_button'
+          : 'contact_section';
+
+        window.gtag('event', 'whatsapp_contact_click', {
+          send_to: 'G-PGMXJ76PZS',
+          contact_method: 'whatsapp',
+          contact_placement: placement,
+          link_url: link.href,
+          page_location: window.location.href
+        });
+      }, { passive: true });
+    })();
+  </script>
 </body>
 </html>
