@@ -41,7 +41,8 @@
 .ads-page .landing-hero .lede { font-size:17px; line-height:1.7; margin-top:19px; max-width:550px; }
 .ads-page .landing-hero .hero-actions { gap:11px; margin-top:27px; }
 .ads-page .landing-hero .btn { min-height:48px; }
-.ads-page .landing-hero .landing-catalog { margin-top:17px; font-size:13px; font-weight:700; color:#89533a; display:inline-flex; gap:8px; align-items:center; text-decoration:underline; text-underline-offset:4px; }
+.ads-page .landing-quick-links { display:flex; flex-wrap:wrap; align-items:center; gap:10px 22px; margin-top:17px; }
+.ads-page .landing-hero .landing-catalog { font-size:13px; font-weight:700; color:#89533a; display:inline-flex; gap:8px; align-items:center; text-decoration:underline; text-underline-offset:4px; }
 .ads-page .landing-hero-proof { display:flex; flex-wrap:wrap; gap:9px; margin-top:24px; }
 .ads-page .landing-hero-proof span { background:#fffaf3; border:1px solid #d8d0c4; border-radius:999px; padding:8px 11px; color:#4b443e; font-size:11px; font-weight:600; }
 .ads-page .landing-hero-images { display:grid; grid-template-columns:1.58fr .82fr; grid-template-rows:1fr 1fr; gap:10px; height:495px; min-width:0; }
@@ -71,6 +72,11 @@
 .ads-page .landing-service-card h3 { font-size:24px; line-height:1.16; margin-top:29px; }
 .ads-page .landing-service-card p { font-size:13px; line-height:1.7; color:#6d675f; margin-top:10px; }
 .ads-page .landing-service-note { font-size:12px; color:#6d675f; margin-top:18px; line-height:1.6; }
+.ads-page .landing-process { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:23px; margin-top:28px; padding-top:24px; border-top:1px solid #d0c5b8; }
+.ads-page .landing-process-step { border-left:2px solid #a47a60; padding-left:15px; min-width:0; }
+.ads-page .landing-process-step span { display:block; font-size:10px; letter-spacing:.1em; font-weight:800; color:#89533a; }
+.ads-page .landing-process-step h3 { margin:7px 0 5px; font-size:19px; line-height:1.2; }
+.ads-page .landing-process-step p { margin:0; font-size:12px; line-height:1.6; color:#59544c; }
 .ads-page .landing-proof { display:grid; grid-template-columns:.9fr 1.1fr; gap:44px; align-items:center; }
 .ads-page .landing-proof h2 { font-size:clamp(34px,3.7vw,52px); line-height:1.08; }
 .ads-page .landing-proof-copy { font-size:15px; color:#59544c; line-height:1.75; }
@@ -137,7 +143,8 @@
   .ads-page .landing-hero-proof span { font-size:10px; padding:7px 9px; }
   .ads-page .landing-hero .hero-actions { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:17px; }
   .ads-page .landing-hero .hero-actions .btn { padding:10px 11px; font-size:12px; min-width:0; min-height:48px; white-space:normal; text-align:center; }
-  .ads-page .landing-hero .landing-catalog { font-size:12px; margin-top:14px; }
+  .ads-page .landing-hero .landing-catalog { font-size:12px; }
+  .ads-page .landing-quick-links { margin-top:14px; gap:9px 16px; }
   .ads-page .landing-hero-images { grid-template-columns:1.4fr .83fr; height:252px; gap:7px; }
   .ads-page .landing-hero-images img { border-radius:11px; }
   .ads-page .landing-section { padding-top:44px; padding-bottom:47px; }
@@ -157,6 +164,9 @@
   .ads-page .landing-service-card { padding:18px 13px; border-radius:12px; }
   .ads-page .landing-service-card h3 { font-size:21px; margin-top:14px; }
   .ads-page .landing-service-card p { font-size:11px; line-height:1.6; }
+  .ads-page .landing-process { grid-template-columns:1fr; gap:14px; padding-top:18px; margin-top:20px; }
+  .ads-page .landing-process-step { padding-left:12px; }
+  .ads-page .landing-process-step h3 { font-size:17px; margin:5px 0 3px; }
   .ads-page .landing-proof { grid-template-columns:1fr; gap:15px; }
   .ads-page .landing-proof h2 { font-size:37px; }
   .ads-page .landing-proof-copy { font-size:13px; }
@@ -238,8 +248,8 @@
     <section class="landing-hero landing-container" aria-labelledby="landing-main-title">
       <div class="landing-hero-copy">
         <p class="landing-eyebrow">FOR BRANDS · IMPORTERS · WHOLESALERS</p>
-        <h1 id="landing-main-title">Custom knit blankets for your next collection.</h1>
-        <p class="lede">Work with a Nantong-based private label knit blanket manufacturer to develop retail-ready throws. Customize yarns, knit patterns, colors, sizes and branded packaging for wholesale programs.</p>
+        <h1 id="landing-main-title">Private Label Knit Blankets, Made for Your Brand.</h1>
+        <p class="lede">Develop retail-ready knit throws with our Nantong-based manufacturing team. Customize yarns, knit patterns, sizes, colors, brand labels and packaging for your wholesale collection.</p>
         <div class="landing-hero-proof">
           <span>Typical sampling ~7 days</span><span>MOQ ~1,000 pcs / style</span><span>OEM / ODM support</span>
         </div>
@@ -247,12 +257,15 @@
           <a class="btn btn-primary" href="#inquiry">Request a quote <span aria-hidden="true">↗</span></a>
           <a class="btn btn-secondary" href="#styles">Explore knit styles</a>
         </div>
-        <a class="landing-catalog" href="assets/docs/liangrui-catalog.pdf" target="_blank" rel="noopener">View our product catalog (PDF) <span aria-hidden="true">↗</span></a>
+        <div class="landing-quick-links">
+          <a class="landing-catalog" href="assets/docs/liangrui-catalog.pdf" target="_blank" rel="noopener">View product catalog (PDF) <span aria-hidden="true">↗</span></a>
+          <a class="landing-catalog" href="#factory-preview">See our real factory photos <span aria-hidden="true">↓</span></a>
+        </div>
       </div>
       <div class="landing-hero-images" aria-label="Examples of knit throw textures">
         <img src="assets/images/chunky.jpg" alt="Neutral chunky knit blanket arranged on a bed" width="780" height="980" fetchpriority="high" decoding="async" />
-        <img src="assets/images/rib.jpg" alt="Neutral rib knit throw blanket" width="480" height="480" loading="lazy" fetchpriority="low" decoding="async" />
-        <img src="assets/images/cable.jpg" alt="Cable knit throw blanket with braided yarn texture" width="480" height="480" loading="lazy" fetchpriority="low" decoding="async" />
+        <img src="assets/images/rib.jpg" alt="Neutral rib knit throw blanket" width="480" height="480" loading="eager" decoding="async" />
+        <img src="assets/images/cable.jpg" alt="Cable knit throw blanket with braided yarn texture" width="480" height="480" loading="eager" decoding="async" />
       </div>
     </section>
 
@@ -366,14 +379,19 @@
     <section class="landing-service" id="capabilities" aria-labelledby="capabilities-title">
       <div class="landing-container landing-section">
         <div class="landing-section-head">
-          <div><p class="landing-eyebrow">OEM / ODM DEVELOPMENT</p><h2 id="capabilities-title">Built around your product brief.</h2></div>
-          <p class="landing-intro">From a reference photo or initial specification to a commercially practical knit throw program.</p>
+          <div><p class="landing-eyebrow">PRIVATE LABEL · OEM / ODM</p><h2 id="capabilities-title">Your knit blanket. Your label. Your retail pack.</h2></div>
+          <p class="landing-intro">Start with a reference photo or product brief. We help align knit construction, branding and packing with your retail requirements.</p>
         </div>
         <div class="landing-service-grid">
           <article class="landing-service-card"><span>01 / MATERIALS</span><h3>Yarn &amp; hand feel</h3><p>Discuss cotton, blends, chenille and other yarn options based on your target texture and price.</p></article>
           <article class="landing-service-card"><span>02 / CONSTRUCTION</span><h3>Knit pattern design</h3><p>Develop cable, rib, chunky and jacquard structures, or match a reference construction.</p></article>
           <article class="landing-service-card"><span>03 / SPECIFICATIONS</span><h3>Size, color &amp; weight</h3><p>Align dimensions, colorways, weight and finish with your assortment requirements.</p></article>
-          <article class="landing-service-card"><span>04 / RETAIL READY</span><h3>Private-label packing</h3><p>Hang tags, care labels, barcode labels, gift boxes, vacuum packing and cartons.</p></article>
+          <article class="landing-service-card"><span>04 / YOUR BRAND</span><h3>Labels &amp; retail packing</h3><p>Discuss branded hang tags, care labels, barcode labels, gift boxes, vacuum packing and cartons.</p></article>
+        </div>
+        <div class="landing-process" aria-label="Private label development process">
+          <div class="landing-process-step"><span>STEP 01</span><h3>Share your product brief</h3><p>Send a reference image, knit style or target specifications. A finished tech pack is not required to start.</p></div>
+          <div class="landing-process-step"><span>STEP 02</span><h3>Review your sample</h3><p>Discuss yarn, pattern, size, color and requested branding or packaging details before confirming a production brief.</p></div>
+          <div class="landing-process-step"><span>STEP 03</span><h3>Plan your order</h3><p>Agree on quantity, final specifications, packing and production timing for your wholesale program.</p></div>
         </div>
         <p class="landing-service-note">Standard MOQ is typically around 1,000 pieces per style. Smaller trial quantities can be discussed depending on construction, yarn, color and packaging.</p>
       </div>
