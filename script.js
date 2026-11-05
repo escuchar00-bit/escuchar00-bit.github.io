@@ -59,52 +59,37 @@ function buildInquiry(){
   return{subject,body};
 }
 
-form?.addEventListener('submit',async(event)=>{
-  event.preventDefault();
-  if(!form.reportValidity()) return;
+// Use FormSubmit's native POST and its _next redirect. A cross-origin AJAX
+// request can be blocked or time out, leaving customers unable to submit.
+form?.addEventListener('submit',(event)=>{
+  if(!form.reportValidity()){
+    event.preventDefault();
+    return;
+  }
 
   const email=document.querySelector('#rfq-email');
   const reply=document.querySelector('#rfq-replyto');
   if(reply&&email) reply.value=email.value;
 
   const submitButton=form.querySelector('button[type="submit"]');
-  if(submitButton?.disabled) return;
+  if(submitButton?.disabled){
+    event.preventDefault();
+    return;
+  }
+
+  // The thank-you page only counts a lead after FormSubmit redirects there.
+  // Allow time for FormSubmit's anti-spam verification step.
+  try{
+    sessionStorage.setItem('liangrui_lead_pending',String(Date.now()));
+  }catch(error){
+    console.warn('Unable to save lead-tracking marker:',error);
+  }
   if(submitButton) submitButton.disabled=true;
-  if(status) {
-    status.textContent='Sending your inquiry…';
+  if(status){
+    status.textContent='Opening the secure inquiry confirmation…';
     status.setAttribute('role','status');
   }
-
-  const payload=Object.fromEntries(new FormData(form).entries());
-  const ajaxUrl=form.action.replace('https://formsubmit.co/','https://formsubmit.co/ajax/');
-  const controller=new AbortController();
-  const timer=setTimeout(()=>controller.abort(),15000);
-
-  try {
-    const response=await fetch(ajaxUrl,{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify(payload),
-      signal:controller.signal
-    });
-    if(!response.ok) throw new Error('FormSubmit HTTP '+response.status);
-    const result=await response.json();
-    // Only a positive provider acknowledgement can lead to the thank-you page.
-    if(result.success!==true&&result.success!=='true') {
-      throw new Error(result.message||'FormSubmit did not confirm delivery');
-    }
-    sessionStorage.setItem('liangrui_lead_confirmed',String(Date.now()));
-    window.location.assign('https://liangruihome.com/thank-you.html');
-  } catch(error) {
-    console.error('Inquiry submission not confirmed:',error);
-    if(status) {
-      status.textContent='We could not confirm your inquiry was sent. Please try again, or email henry.zhang@movellc.net directly.';
-      status.setAttribute('role','alert');
-    }
-    if(submitButton) submitButton.disabled=false;
-  } finally {
-    clearTimeout(timer);
-  }
+  // Do not preventDefault: browser POST handles CAPTCHA and _next redirect.
 });
 
 document.querySelector('#copy-inquiry')?.addEventListener('click',async()=>{
