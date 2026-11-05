@@ -59,8 +59,8 @@ function buildInquiry(){
   return{subject,body};
 }
 
-// Use FormSubmit's native POST and its _next redirect. A cross-origin AJAX
-// request can be blocked or time out, leaving customers unable to submit.
+// Submit directly through the configured form provider using a native POST.
+// This avoids cross-origin AJAX failures and preserves the redirect flow.
 form?.addEventListener('submit',(event)=>{
   if(!form.reportValidity()){
     event.preventDefault();
@@ -77,8 +77,8 @@ form?.addEventListener('submit',(event)=>{
     return;
   }
 
-  // The thank-you page only counts a lead after FormSubmit redirects there.
-  // Allow time for FormSubmit's anti-spam verification step.
+  // The thank-you page only counts a lead after the provider redirects there.
+  // Allow time for the provider's anti-spam verification step.
   try{
     sessionStorage.setItem('liangrui_lead_pending',String(Date.now()));
   }catch(error){
@@ -89,7 +89,7 @@ form?.addEventListener('submit',(event)=>{
     status.textContent='Opening the secure inquiry confirmation…';
     status.setAttribute('role','status');
   }
-  // Do not preventDefault: browser POST handles CAPTCHA and _next redirect.
+  // Do not preventDefault: browser POST handles validation and success redirect.
 });
 
 document.querySelector('#copy-inquiry')?.addEventListener('click',async()=>{
