@@ -126,6 +126,10 @@ document.querySelector('#copy-inquiry')?.addEventListener('click',async()=>{
       retryTimer = window.setTimeout(() => {
         retryTimer = null;
         if (!image.isConnected || (image.complete && image.naturalWidth > 0)) return;
+        // If a responsive candidate failed, fall back to the original proven
+        // asset rather than repeatedly requesting the same broken candidate.
+        image.removeAttribute('srcset');
+        image.removeAttribute('sizes');
         image.src = nextSource.href;
       }, attempts === 1 ? 700 : 1800);
     };
