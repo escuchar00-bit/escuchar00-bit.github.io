@@ -102,3 +102,54 @@ document.querySelector('#copy-inquiry')?.addEventListener('click',async()=>{
     if(status)status.textContent='Copy was blocked. Please email henry.zhang@movellc.net directly.';
   }
 });
+
+/*
+ * Mobile image resilience: anticipate images near the viewport and retry
+ * transient same-origin asset failures without changing layout or form logic.
+ */
+(() => {
+  const images = Array.from(document.querySelectorAll('img[src]')).filter(image => {
+    const source = image.getAttribute('src') || '';
+    return source.startsWith('assets/') || source.startsWith('/assets/');
+  });
+
+  images.forEach(image => {
+    const originalSource = image.getAttribute('src');
+    let attempts = 0;
+    let retryTimer = null;
+
+    const retry = () => {
+      if (attempts >= 2 || retryTimer !== null) return;
+      attempts += 1;
+      const nextSource = new URL(originalSource, document.baseURI);
+      nextSource.searchParams.set('lr_image_retry', attempts + '-' + Date.now());
+      retryTimer = window.setTimeout(() => {
+        retryTimer = null;
+        if (!image.isConnected || (image.complete && image.naturalWidth > 0)) return;
+        image.src = nextSource.href;
+      }, attempts === 1 ? 700 : 1800);
+    };
+
+    image.addEventListener('error', retry);
+    image.addEventListener('load', () => {
+      if (retryTimer !== null) {
+        window.clearTimeout(retryTimer);
+        retryTimer = null;
+      }
+    });
+    if (image.complete && image.naturalWidth === 0) retry();
+  });
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.setAttribute('loading', 'eager');
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: '600px 0px', threshold: 0.01 });
+
+    images.filter(image => image.getAttribute('loading') === 'lazy')
+      .forEach(image => observer.observe(image));
+  }
+})();
